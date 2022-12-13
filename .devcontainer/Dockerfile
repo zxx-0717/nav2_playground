@@ -22,7 +22,7 @@ RUN git config --global --add safe.directory $WORKSPACE
 COPY "files/ros2.list" "/etc/apt/sources.list.d/"
 COPY "files/sources.list" "/etc/apt/"
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-RUN apt-get update && apt-get install ros-foxy-turtlebot3-gazebo
+RUN sudo apt-get update && sudo apt-get install ros-foxy-turtlebot3-gazebo -y
 
 # Install .NET SDK
 ENV DEBIAN_FRONTEND=noninteractive
