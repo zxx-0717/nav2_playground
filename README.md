@@ -24,7 +24,10 @@ A robot test environment using foxy and navigation2 in docker.
 
 7: source ./install/setup.bash
 
-8: ros2 launch nav2_playground waypoint_follower_example_launch.py
+8: ros2 launch nav2_simple_commander waypoint_follower_example_launch.py 
+
+# note
+if during building, an error occured like this "c++: fatal error: Killed signal terminated program cc1plus', just build again.
 
 
 
