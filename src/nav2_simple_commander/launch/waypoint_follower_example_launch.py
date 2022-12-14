@@ -17,8 +17,9 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import ExecuteProcess, IncludeLaunchDescription
+from launch.actions import ExecuteProcess, IncludeLaunchDescription, SetEnvironmentVariable, DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import EnvironmentVariable
 from launch_ros.actions import Node
 
 
@@ -29,10 +30,10 @@ def generate_launch_description():
     capella_dir = get_package_share_directory('turtlebot3_gazebo')
 
     map_yaml_file = os.path.join(warehouse_dir, 'maps', '005', 'capella_map.yaml')
-    world = os.path.join(capella_dir, 'worlds','turtlebot3_houses/waffle.model')
+    world = os.path.join(capella_dir, 'worlds', 'turtlebot3_houses/waffle.model')
     # map_yaml_file = os.path.join(warehouse_dir, 'maps', '005', 'map.yaml')
     # world = os.path.join(python_commander_dir, 'warehouse.world')
-    print("world:{}".format(world))
+    # print("world:{}".format(world))
 
     # start the simulation
     start_gazebo_server_cmd = ExecuteProcess(
@@ -55,7 +56,7 @@ def generate_launch_description():
     rviz_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(nav2_bringup_dir, 'launch', 'rviz_launch.py')),
-        launch_arguments={'namespace': '','use_namespace': 'False', 'use_sim_time': 'True'}.items())
+        launch_arguments={'namespace': '', 'use_namespace': 'False', 'use_sim_time': 'True'}.items())
 
     # start navigation
     bringup_cmd = IncludeLaunchDescription(
@@ -77,7 +78,16 @@ def generate_launch_description():
         output='screen'
     )
 
+    # set GAZEBO_MODEL_PATH
+    gazebo_model_path = warehouse_dir + '/models' + ':' + capella_dir + '/models' + ':' +os.getcwd() + '/models'
+    print("gazebo_model_path:{}".format(gazebo_model_path))
+    set_gazebo_model_path = SetEnvironmentVariable(
+        name="GAZEBO_MODEL_PATH",
+        value=[EnvironmentVariable('GAZEBO_MODEL_PATH', default_value=''), gazebo_model_path]
+    )
+
     ld = LaunchDescription()
+    ld.add_action(set_gazebo_model_path)
     ld.add_action(start_gazebo_server_cmd)
     ld.add_action(start_gazebo_client_cmd)
     ld.add_action(start_robot_state_publisher_cmd)
