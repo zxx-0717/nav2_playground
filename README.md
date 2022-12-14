@@ -14,7 +14,7 @@ A robot test environment using foxy and navigation2 in docker.
 
 2: open folder in vscode
 
-3:  reopen in contaner
+3:  reopen in continer
 
 4:  build container
 
