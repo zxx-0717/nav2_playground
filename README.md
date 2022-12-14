@@ -22,7 +22,9 @@ A robot test environment using foxy and navigation2 in docker.
 
 6: in vscode, Terminal -> Run Task -> Build
 
-7: ros2 launch nav2_playground waypoint_follower_example_launch.py
+7: source ./install/setup.bash
+
+8: ros2 launch nav2_playground waypoint_follower_example_launch.py
 
 
 

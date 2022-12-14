@@ -71,13 +71,6 @@ def generate_launch_description():
         emulate_tty=True,
         output='screen')
 
-    # start amcl logger
-    amcl_logger = Node(
-        package='amcl_logger',
-        executable='amcl_logger',
-        output='screen'
-    )
-
     # set GAZEBO_MODEL_PATH
     gazebo_model_path = warehouse_dir + '/models' + ':' + capella_dir + '/models' + ':' +os.getcwd() + '/models'
     print("gazebo_model_path:{}".format(gazebo_model_path))
@@ -94,5 +87,4 @@ def generate_launch_description():
     ld.add_action(rviz_cmd)
     ld.add_action(bringup_cmd)
     ld.add_action(demo_cmd)
-    # ld.add_action(amcl_logger)
     return ld
