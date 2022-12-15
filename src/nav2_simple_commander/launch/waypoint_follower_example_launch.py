@@ -72,7 +72,7 @@ def generate_launch_description():
         output='screen')
 
     # set GAZEBO_MODEL_PATH
-    gazebo_model_path = warehouse_dir + '/models' + ':' + capella_dir + '/gazebo_models' + ':' +os.getcwd() + '/models'
+    gazebo_model_path = warehouse_dir + '/models' + ':' + capella_dir + '/models' + ':' +os.getcwd() + '/gazebo_models'
     print("gazebo_model_path:{}".format(gazebo_model_path))
     set_gazebo_model_path = SetEnvironmentVariable(
         name="GAZEBO_MODEL_PATH",
